@@ -3,7 +3,8 @@ This is a Todo list API made in the Express framework with all the specification
 
 ----------
 #### Installation:
-Download the full code, and after extracting it run `npm init` and `npm run dev` and nodemon will start up the server, and you should be good to go
+
+Download the full code, set the .env variables like in `.env.example`, and run `docker compose up`, docker will start the API and database.
 
 ----------
 #### API endpoints:
@@ -25,12 +26,12 @@ HTTP/1.1 201 Created
 X-Powered-By: Express
 Content-Type: application/json; charset=utf-8
 Content-Length: 40
-ETag: W/"28-PpSBYV7i68cXyGc7AhjVpkZkY5Q"
-Date: Fri, 28 Aug 2026 21:30:30 GMT
+ETag: W/"28-gPXr/tBcmKMXZwSEhav9o8e9gYc"
+Date: Tue, 15 Sep 2026 21:10:55 GMT
 Connection: keep-alive
 Keep-Alive: timeout=5
 
-{"id":4,"title":"Buy milk","done":false}
+{"id":5,"title":"Buy milk","done":false}
 ```
 This is the curl output of the post method with just the title.
 
@@ -45,20 +46,24 @@ This is the Swagger UI made using Swagger-jsdocs. <br>
 
 ----------
 
-#### SQLite:
+#### PostgreSQL:
 
 **Why**:
-- A small application not build to scale benefits from a small and easy-to-work-with database
-- One file has all the information you need
-- Uses familiar SQL syntax
-- Setup is quick, and tools are free
+- Scalable and supports many users
+- Is the standard in many applications
 
 **Code**:
-- `Tasks.db` is the file containing the database itself, while abstraction is done in `db.js`
+- Image is hosted on docker and not locally ran.
 
 **Database in tableplus (tool of choice)**:
-<img width="1919" height="1018" alt="image" src="https://github.com/user-attachments/assets/0e2f6883-353b-4a10-991c-121acffbbca2" />
 
-**Example query from stage 4**:
+<img width="1919" height="1010" alt="image" src="https://github.com/user-attachments/assets/d2dd4af6-dc50-4631-96c2-7bd65724e4fe" />
 
-<img width="541" height="282" alt="image" src="https://github.com/user-attachments/assets/29ad5932-cedc-45a6-8c81-b1e0446264c0" />
+**Example query**:
+
+<img width="372" height="467" alt="image" src="https://github.com/user-attachments/assets/af98b43a-2bdd-49a3-8dfd-1a8066d1ed2b" />
+
+----------
+
+#### Dockerization:
+
