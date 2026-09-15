@@ -2,18 +2,18 @@ const taskRepository = require('../repositories/tasks.repositories');
 const { validateTitle, validateTask, validateId, validateDone } = require('../util/validate');
 
 
-function getAllTasks({ search, status } = {}) {
+async function getAllTasks({ search, status } = {}) {
     const normalizedStatus = status !== undefined
-        ? (status === "done" ? 1 : 0)
+        ? (status === "done" ? true : false)
         : undefined;
 
-    return taskRepository.findAll({ search, status: normalizedStatus });
+    return await taskRepository.findAll({ search, status: normalizedStatus });
 }
 
-function getTaskById(id) {
+async function getTaskById(id) {
     validateId(Number(id));
 
-    const task = taskRepository.findById(id);
+    const task = await taskRepository.findById(id);
 
     validateTask(task, id);
 

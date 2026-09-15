@@ -24,9 +24,9 @@ const router = express.Router();
  *       200:
  *         description: List of all tasks
  */
-router.get("/tasks", (req, res) => {
+router.get("/tasks", async (req, res) => {
     const { search, status } = req.query;
-    res.json(service.getAllTasks({ search, status }));
+    res.json(await service.getAllTasks({ search, status }));
 });
 
 /**
@@ -47,9 +47,9 @@ router.get("/tasks", (req, res) => {
  *       404:
  *         description: Task not found
  */
-router.get("/tasks/:id", (req, res, next) => {
+router.get("/tasks/:id", async (req, res, next) => {
     try {
-        const task = service.getTaskById(req.params.id);
+        const task = await service.getTaskById(req.params.id);
         res.json(task);
     } catch (err) {
         next(err);

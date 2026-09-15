@@ -1,28 +1,30 @@
 const { pool } = require('../db/connection');
 
-function findAll({ search, status } = {}) {
+async function findAll({ search, status } = {}) {
     let query = "SELECT * FROM tasks";
     const conditions = [];
     const params = [];
 
     if (search) {
-        conditions.push("title LIKE ?");
         params.push(`%${search}%`);
+        conditions.push(`title ILIKE $${params.length}`);
     }
     if (status !== undefined) {
-        conditions.push("done = ?");
         params.push(status);
+        conditions.push(`done = $${params.length}`);
     }
 
     if (conditions.length > 0) {
         query += " WHERE " + conditions.join(" AND ");
     }
 
-    return db.prepare(query).all(...params);
+    const { rows } = await pool.query(query, params);
+    return rows;
 }
 
-function findById(id) {
-    return db.prepare("SELECT * FROM tasks WHERE id = ?").get(id);
+async function findById(id) {
+     const { rows } = await pool.query("SELECT * FROM tasks WHERE id = $1", [id]);
+    return rows[0];
 }
 
 function insert(title) {
