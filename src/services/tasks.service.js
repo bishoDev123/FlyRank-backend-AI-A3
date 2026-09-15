@@ -20,32 +20,31 @@ async function getTaskById(id) {
     return task;
 }
 
-function createTask(title) {
+async function createTask(title) {
     const trimmed = validateTitle(title);
 
-    const id = taskRepository.insert(trimmed);
-    return taskRepository.findById(id);
+    return await taskRepository.insert(trimmed);
 }
 
-function updateTask(title, done, id) {
+async function updateTask(title, done, id) {
     validateTitle(title);
     validateId(Number(id));
     validateDone(done);
 
-    const task = taskRepository.findById(id);
+    const task = await taskRepository.findById(id);
     validateTask(task, id);
 
-    taskRepository.update(id, title, done);
+    await taskRepository.update(id, title, done);
     return {...task, title, done};
 }
 
-function deleteTask(id) {
+async function deleteTask(id) {
     validateId(Number(id));
 
-    const task = taskRepository.findById(id);
+    const task = await taskRepository.findById(id);
     validateTask(task, id);
 
-    taskRepository.remove(id);
+    await taskRepository.remove(id);
 }
 
 module.exports = {

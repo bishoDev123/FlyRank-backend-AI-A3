@@ -23,21 +23,23 @@ async function findAll({ search, status } = {}) {
 }
 
 async function findById(id) {
-     const { rows } = await pool.query("SELECT * FROM tasks WHERE id = $1", [id]);
+    const { rows } = await pool.query("SELECT * FROM tasks WHERE id = $1", [id]);
     return rows[0];
 }
 
-function insert(title) {
-    const result = db.prepare("INSERT INTO tasks (title) VALUES (?)").run(title);
-    return result.lastInsertRowid;
+async function insert(title) {
+    const { rows } = await pool.query("INSERT INTO tasks (title, done) VALUES ($1, $2) RETURNING *", [title, false]);
+    return rows[0];
 }
 
-function update(id, title, done) {
-    db.prepare("UPDATE tasks SET title = ?, done = ? WHERE id = ?").run(title, done, id);
+async function update(id, title, done) {
+    const { rows } = await pool.query("UPDATE tasks SET title = $1, done = $2 WHERE id = $3", [title, done, id]);
+    return rows[0];
 }
 
-function remove(id) {
-    db.prepare("DELETE FROM tasks WHERE id = ?").run(id);
+async function remove(id) {
+    const { rows } = await pool.query("DELETE FROM tasks WHERE id = $1", [id]);
+    return rows[0];
 }
 
 module.exports = {

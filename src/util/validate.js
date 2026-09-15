@@ -23,7 +23,7 @@ function validateTask(task, id) {
 }
 
 function validateDone(done) {
-    if (!Number.isInteger(done) || ![1, 0].includes(done))
+    if (!typeof done === "boolean")
         throw new ValidationError(`couldn't change task status`);
 }
 

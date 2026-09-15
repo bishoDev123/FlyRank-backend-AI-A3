@@ -78,8 +78,8 @@ router.get("/tasks/:id", async (req, res, next) => {
  *       400:
  *         description: Missing title
  */
-router.post("/tasks", (req, res) => {
-    const newTask = service.createTask(req.body.title);
+router.post("/tasks", async (req, res) => {
+    const newTask = await service.createTask(req.body.title);
 
     res.status(201).json(newTask);
 });
@@ -115,13 +115,13 @@ router.post("/tasks", (req, res) => {
  *       404:
  *         description: Task not found
  */
-router.put("/tasks/:id", (req, res) => {
+router.put("/tasks/:id", async (req, res) => {
     const {
         body: { title, done },
         params: { id }
     } = req;
 
-    const task = service.updateTask(title, done, id);
+    const task = await service.updateTask(title, done, id);
     res.status(200).json(task);
 });
 
@@ -143,8 +143,8 @@ router.put("/tasks/:id", (req, res) => {
  *       404:
  *         description: Task not found
  */
-router.delete("/tasks/:id", (req, res) => {
-    service.deleteTask(req.params.id);
+router.delete("/tasks/:id", async (req, res) => {
+    await service.deleteTask(req.params.id);
     res.sendStatus(204);
 });
 
