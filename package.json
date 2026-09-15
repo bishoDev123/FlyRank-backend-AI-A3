@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "nodemon": "^3.1.14",
+    "pg": "^8.23.0",
     "swagger-jsdoc": "^6.3.0",
-    "swagger-ui": "^5.32.14",
+    "swagger-ui": "^3.51.2",
     "swagger-ui-express": "^5.0.1"
   }
 }

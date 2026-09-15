@@ -1,4 +1,4 @@
-const { db } = require('../db/connection');
+const { pool } = require('../db/connection');
 
 function findAll({ search, status } = {}) {
     let query = "SELECT * FROM tasks";
